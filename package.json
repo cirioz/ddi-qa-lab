@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "A portfolio project simulating QA engineering work on real network-infrastructure software.",
   "main": "netbox-api.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.2"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.3"
+  }
 }
