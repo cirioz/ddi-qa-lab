@@ -1,0 +1,12 @@
+{
+  "name": "ddi-qa-lab",
+  "version": "1.0.0",
+  "description": "A portfolio project simulating QA engineering work on real network-infrastructure software.",
+  "main": "netbox-api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
