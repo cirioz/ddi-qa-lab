@@ -12,6 +12,10 @@ function getActivePrefixes(prefixes) {
     return prefixes.filter(prefix => prefix.active === true)
 }
 
+function getInactivePrefixes(prefixes) {
+    return prefixes.filter(prefix => prefix.active === false)
+}
+
 
 function getByFamily(prefixes, family) {
     return prefixes.filter(prefix => prefix.family === family)
@@ -21,6 +25,15 @@ function findByName (prefixes, name) {
     return prefixes.find(prefix => prefix.name === name )
 }
 
+function getSummary(prefixes) {
+    return {
+        total: prefixes.length,
+        active: getActivePrefixes(prefixes).length,
+        inactive: getInactivePrefixes(prefixes).length
+    }
+}
+
 console.log(getActivePrefixes(prefixes))
 console.log(getByFamily(prefixes,"IPv4"))
 console.log(findByName(prefixes, "10.33.30.40"))
+console.log(getSummary(prefixes))
