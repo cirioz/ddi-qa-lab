@@ -37,3 +37,39 @@ test('POST /api/ipam/prefixes/ rejects invalid CIDR', async ({ request }) => {
 
   expect(response.status()).toBe(400);
 });
+
+test('GET /api/ipam/prefixes/ rejects unauthenticated request', async ({ request }) => {
+  const response = await request.get('/api/ipam/prefixes/', {
+    headers: {
+      'Authorization': '',
+    }
+  });
+
+  expect(response.status()).toBe(403);
+});
+
+test('POST /api/ipam/prefixes/ allocates an available IP', async ({ request }) => {
+  // First create a prefix
+  const prefixResponse = await request.post('/api/ipam/prefixes/', {
+    data: {
+      prefix: '10.10.0.0/24',
+      status: 'active',
+    }
+  });
+  expect(prefixResponse.status()).toBe(201);
+  const prefix = await prefixResponse.json();
+
+  // Allocate next available IP
+  const ipResponse = await request.post(`/api/ipam/prefixes/${prefix.id}/available-ips/`, {
+    data: {
+      status: 'active',
+    }
+  });
+  expect(ipResponse.status()).toBe(201);
+  const ip = await ipResponse.json();
+  expect(ip.address).toContain('10.10.0.');
+
+  // Cleanup
+  await request.delete(`/api/ipam/prefixes/${prefix.id}/`);
+});
+
